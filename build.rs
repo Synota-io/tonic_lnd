@@ -17,6 +17,7 @@ fn main() -> std::io::Result<()> {
     let protos = [
         "signrpc/signer.proto",
         "walletrpc/walletkit.proto",
+        "routerrpc/router.proto",
         "lightning.proto",
     ];
 

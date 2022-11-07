@@ -80,6 +80,7 @@ pub type LightningClient = lnrpc::lightning_client::LightningClient<InterceptedS
 
 /// Convenience type alias for wallet client.
 pub type WalletKitClient = walletrpc::wallet_kit_client::WalletKitClient<InterceptedService<Channel, MacaroonInterceptor>>;
+pub type RouterClient = routerrpc::router_client::RouterClient<InterceptedService<Channel, MacaroonInterceptor>>;
 
 /// The client returned by `connect` function
 ///
@@ -87,6 +88,7 @@ pub type WalletKitClient = walletrpc::wallet_kit_client::WalletKitClient<Interce
 pub struct Client {
     lightning: LightningClient,
     wallet: WalletKitClient,
+    router: RouterClient,
 }
 
 impl Client {
@@ -98,6 +100,10 @@ impl Client {
     /// Returns the wallet client.
     pub fn wallet(&mut self) -> &mut WalletKitClient {
         &mut self.wallet
+    }
+
+    pub fn router(&mut self) -> &mut RouterClient {
+        &mut self.router
     }
 }
 
@@ -125,6 +131,10 @@ pub mod lnrpc {
 
 pub mod walletrpc {
     tonic::include_proto!("walletrpc");
+}
+
+pub mod routerrpc {
+    tonic::include_proto!("routerrpc");
 }
 
 pub mod signrpc {
@@ -181,7 +191,8 @@ pub async fn connect<A, CP, MP>(address: A, cert_file: CP, macaroon_file: MP) ->
 
     let client = Client {
         lightning: lnrpc::lightning_client::LightningClient::with_interceptor(conn.clone(), interceptor.clone()),
-        wallet: walletrpc::wallet_kit_client::WalletKitClient::with_interceptor(conn, interceptor)
+        wallet: walletrpc::wallet_kit_client::WalletKitClient::with_interceptor(conn.clone(), interceptor.clone()),
+        router: routerrpc::router_client::RouterClient::with_interceptor(conn, interceptor)
     };
     Ok(client)
 }
