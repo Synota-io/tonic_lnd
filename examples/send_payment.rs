@@ -56,8 +56,6 @@ async fn main() {
         .await
         .expect("expected to be able to batch open channels");
 
-
-
     // We only print it here, note that in real-life code you may want to call `.into_inner()` on
     // the response to get the message.
     println!("{:#?}", info);
