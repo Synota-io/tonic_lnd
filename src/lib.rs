@@ -198,7 +198,7 @@ pub async fn connect<A, CP, MP>(address: A, cert_file: CP, macaroon_file: MP) ->
 }
 
 #[cfg_attr(feature = "tracing", tracing::instrument(name = "Connecting to LND"))]
-pub async fn in_mem_connect<A, CP, MP>(address: A, cert_file_as_hex: String, macaroon_as_hex: String) -> Result<Client, ConnectError> where A: TryInto<tonic::transport::Endpoint> + std::fmt::Debug + ToString, <A as TryInto<tonic::transport::Endpoint>>::Error: std::error::Error + Send + Sync + 'static, CP: AsRef<Path> + Into<PathBuf> + std::fmt::Debug, MP: AsRef<Path> + Into<PathBuf> + std::fmt::Debug {
+pub async fn in_mem_connect<A>(address: A, cert_file_as_hex: String, macaroon_as_hex: String) -> Result<Client, ConnectError> where A: TryInto<tonic::transport::Endpoint> + std::fmt::Debug + ToString, <A as TryInto<tonic::transport::Endpoint>>::Error: std::error::Error + Send + Sync + 'static {
     let address_str = address.to_string();
     let conn = try_map_err!(address
         .try_into(), |error| InternalConnectError::InvalidAddress { address: address_str.clone(), error: Box::new(error), })
