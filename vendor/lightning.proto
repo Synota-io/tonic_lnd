@@ -3726,7 +3726,7 @@ message PaymentHash {
     Deprecated now that the REST gateway supports base64 encoding of bytes
     fields.
     */
-    string r_hash_str = 1 [deprecated = true];
+    // string r_hash_str = 1 [deprecated = true];
 
     /*
     The payment hash of the invoice to be looked up. When using REST, this field
