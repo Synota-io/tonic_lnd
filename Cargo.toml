@@ -20,6 +20,8 @@ rustls-pemfile = "1.0.0"
 hex = "0.4.3"
 tokio = { version = "1.7.1", features = ["fs"] }
 tracing = { version = "0.1", features = ["log"], optional = true }
+rust_decimal = { version = "1.26.1", features = ["db-postgres"] }
+rust_decimal_macros = "1.26.1"
 
 rand = "0.8.5"
 
