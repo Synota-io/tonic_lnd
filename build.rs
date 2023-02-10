@@ -32,6 +32,11 @@ fn main() -> std::io::Result<()> {
     tonic_build::configure()
         .build_client(true)
         .build_server(false)
+        .type_attribute("ListChannelsResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Channel", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("HTLC", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("CommitmentType", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ChannelConstraints", "#[derive(serde::Deserialize, serde::Serialize)]")
         .format(false)
         .compile(&proto_paths, &[dir])?;
     Ok(())
