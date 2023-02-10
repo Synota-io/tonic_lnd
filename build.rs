@@ -46,7 +46,7 @@ fn main() -> std::io::Result<()> {
         .type_attribute("Resolution", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("ResolutionType", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("ResolutionOutcome", "#[derive(serde::Deserialize, serde::Serialize)]")
-        .type_attribute("Outpoint", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("OutPoint", "#[derive(serde::Deserialize, serde::Serialize)]")
         //GetTransactions fields
         .type_attribute("TransactionDetails", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("Transaction", "#[derive(serde::Deserialize, serde::Serialize)]")
