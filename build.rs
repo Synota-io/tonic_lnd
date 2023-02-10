@@ -32,11 +32,34 @@ fn main() -> std::io::Result<()> {
     tonic_build::configure()
         .build_client(true)
         .build_server(false)
+        //ListChannels fields
         .type_attribute("ListChannelsResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("Channel", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("HTLC", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("CommitmentType", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("ChannelConstraints", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //ClosedChannels fields
+        .type_attribute("ClosedChannelsResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ChannelCloseSummary", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ClosureType", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Initiator", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Resolution", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ResolutionType", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ResolutionOutcome", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Outpoint", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //GetTransactions fields
+        .type_attribute("TransactionDetails", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Transaction", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("OutputDetail", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("PreviousOutPoint", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("OutputScriptType", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //ChannelBalance fields
+        .type_attribute("ChannelBalanceResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Amount", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //WalletBalance fields
+        .type_attribute("WalletBalanceResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("AccountBalanceEntry", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("WalletAccountBalance", "#[derive(serde::Deserialize, serde::Serialize)]")
         .format(false)
         .compile(&proto_paths, &[dir])?;
     Ok(())
