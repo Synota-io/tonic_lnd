@@ -81,6 +81,8 @@ pub type LightningClient = lnrpc::lightning_client::LightningClient<InterceptedS
 /// Convenience type alias for wallet client.
 pub type WalletKitClient = walletrpc::wallet_kit_client::WalletKitClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type RouterClient = routerrpc::router_client::RouterClient<InterceptedService<Channel, MacaroonInterceptor>>;
+pub type LoopClient = looprpc::swap_client_client::SwapClientClient<InterceptedService<Channel, MacaroonInterceptor>>;
+pub type FaradayServerClient = frdrpc::faraday_server_client::FaradayServerClient<InterceptedService<Channel, MacaroonInterceptor>>;
 
 /// The client returned by `connect` function
 ///
@@ -89,6 +91,8 @@ pub struct Client {
     lightning: LightningClient,
     wallet: WalletKitClient,
     router: RouterClient,
+    loopclient: LoopClient, 
+    faraday: FaradayServerClient,
 }
 
 impl Client {
@@ -104,6 +108,14 @@ impl Client {
 
     pub fn router(&mut self) -> &mut RouterClient {
         &mut self.router
+    }
+
+    pub fn loopclient(&mut self) -> &mut LoopClient {
+        &mut self.loopclient
+    }
+
+    pub fn faraday(&mut self) -> &mut FaradayServerClient {
+        &mut self.faraday
     }
 }
 
@@ -139,6 +151,14 @@ pub mod routerrpc {
 
 pub mod signrpc {
     tonic::include_proto!("signrpc");
+}
+
+pub mod looprpc {
+    tonic::include_proto!("looprpc");
+}
+
+pub mod frdrpc {
+    tonic::include_proto!("frdrpc");
 }
 
 /// Supplies requests with macaroon
@@ -192,7 +212,9 @@ pub async fn connect<A, CP, MP>(address: A, cert_file: CP, macaroon_file: MP) ->
     let client = Client {
         lightning: lnrpc::lightning_client::LightningClient::with_interceptor(conn.clone(), interceptor.clone()),
         wallet: walletrpc::wallet_kit_client::WalletKitClient::with_interceptor(conn.clone(), interceptor.clone()),
-        router: routerrpc::router_client::RouterClient::with_interceptor(conn, interceptor)
+        router: routerrpc::router_client::RouterClient::with_interceptor(conn.clone(), interceptor.clone()),
+        loopclient: looprpc::swap_client_client::SwapClientClient::with_interceptor(conn.clone(), interceptor.clone()),
+        faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
@@ -215,7 +237,9 @@ pub async fn in_mem_connect<A>(address: A, cert_file_as_hex: String, macaroon_as
     let client = Client {
         lightning: lnrpc::lightning_client::LightningClient::with_interceptor(conn.clone(), interceptor.clone()),
         wallet: walletrpc::wallet_kit_client::WalletKitClient::with_interceptor(conn.clone(), interceptor.clone()),
-        router: routerrpc::router_client::RouterClient::with_interceptor(conn, interceptor)
+        router: routerrpc::router_client::RouterClient::with_interceptor(conn.clone(), interceptor.clone()),
+        loopclient: looprpc::swap_client_client::SwapClientClient::with_interceptor(conn.clone(), interceptor.clone()),
+        faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
