@@ -21,6 +21,7 @@ fn main() -> std::io::Result<()> {
         "lightning.proto",
         "faraday.proto",
         "looprpc/client.proto",
+        "invoicesrpc/invoices.proto",
     ];
 
     let proto_paths: Vec<_> = protos

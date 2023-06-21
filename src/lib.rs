@@ -83,6 +83,7 @@ pub type WalletKitClient = walletrpc::wallet_kit_client::WalletKitClient<Interce
 pub type RouterClient = routerrpc::router_client::RouterClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type LoopClient = looprpc::swap_client_client::SwapClientClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type FaradayServerClient = frdrpc::faraday_server_client::FaradayServerClient<InterceptedService<Channel, MacaroonInterceptor>>;
+pub type InvoicesClient = invoicesrpc::invoices_client::InvoicesClient<InterceptedService<Channel, MacaroonInterceptor>>;
 
 /// The client returned by `connect` function
 ///
@@ -93,6 +94,7 @@ pub struct Client {
     router: RouterClient,
     loopclient: LoopClient, 
     faraday: FaradayServerClient,
+    invoices: InvoicesClient,
 }
 
 impl Client {
@@ -116,6 +118,10 @@ impl Client {
 
     pub fn faraday(&mut self) -> &mut FaradayServerClient {
         &mut self.faraday
+    }
+
+    pub fn invoices(&mut self) -> &mut InvoicesClient {
+        &mut self.invoices
     }
 }
 
@@ -159,6 +165,10 @@ pub mod looprpc {
 
 pub mod frdrpc {
     tonic::include_proto!("frdrpc");
+}
+
+pub mod invoicesrpc {
+    tonic::include_proto!("invoicesrpc");
 }
 
 /// Supplies requests with macaroon
@@ -215,6 +225,7 @@ pub async fn connect<A, CP, MP>(address: A, cert_file: CP, macaroon_file: MP) ->
         router: routerrpc::router_client::RouterClient::with_interceptor(conn.clone(), interceptor.clone()),
         loopclient: looprpc::swap_client_client::SwapClientClient::with_interceptor(conn.clone(), interceptor.clone()),
         faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
+        invoices: invoicesrpc::invoices_client::InvoicesClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
@@ -240,6 +251,7 @@ pub async fn in_mem_connect<A>(address: A, cert_file_as_hex: String, macaroon_as
         router: routerrpc::router_client::RouterClient::with_interceptor(conn.clone(), interceptor.clone()),
         loopclient: looprpc::swap_client_client::SwapClientClient::with_interceptor(conn.clone(), interceptor.clone()),
         faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
+        invoices: invoicesrpc::invoices_client::InvoicesClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
