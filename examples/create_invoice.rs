@@ -4,7 +4,7 @@
 // This program accepts three arguments: address, cert file, macaroon file
 // The address must start with `https://`!
 
-use tonic_lnd::{lnrpc::LightningAddress, routerrpc::SendPaymentRequest};
+use tonic_lnd::{lnrpc::LightningAddress, routerrpc::SendPaymentRequest, invoicesrpc::AddHoldInvoiceRequest};
 
 use hex::decode;
 use rand::{distributions::Alphanumeric, Rng, RngCore};
@@ -55,8 +55,6 @@ async fn main() {
         })
         .await
         .expect("expected to be able to batch open channels");
-
-
 
     // We only print it here, note that in real-life code you may want to call `.into_inner()` on
     // the response to get the message.
