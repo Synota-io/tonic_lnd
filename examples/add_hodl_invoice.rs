@@ -69,6 +69,7 @@ async fn main() {
             memo: "Hello there Hold Invoice".to_string(),
             hash: hash.to_vec(),
             value: 10,
+            expiry: 60,
             private: true,
         })
         .await
