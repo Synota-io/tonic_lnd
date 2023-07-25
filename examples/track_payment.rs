@@ -31,7 +31,7 @@ async fn main() {
             no_inflight_updates: false,
         })
         .await
-        .expect("failed to get wallet balance").into_inner().message().await.expect("result");
+        .expect("failed to get payment").into_inner().message().await.expect("failed to get the payment info");
 
     // let mut count = 0;
     // let mut outer_fail_reason: String = "No reason found".to_string();
