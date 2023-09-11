@@ -63,6 +63,15 @@ fn main() -> std::io::Result<()> {
         .type_attribute("WalletBalanceResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("AccountBalanceEntry", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("WalletAccountBalance", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //ListSwaps fields
+        .type_attribute("ListSwapsResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("SwapStatus", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("SwapType", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("SwapState", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("FailureReason", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //GetLsatTokens fields
+        .type_attribute("TokensResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("LsatToken", "#[derive(serde::Deserialize, serde::Serialize)]")
         .format(false)
         .compile(&proto_paths, &[dir])?;
     Ok(())
