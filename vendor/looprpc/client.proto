@@ -167,7 +167,7 @@ message LoopOutRequest {
     to loop out is selected based on the lowest routing fee for the swap
     payment to the server.
     */
-    uint64 loop_out_channel = 8 [deprecated = true];
+    //uint64 loop_out_channel = 8 [deprecated = true];
 
     /*
     A restriction on the channel set that may be used to loop out. The actual

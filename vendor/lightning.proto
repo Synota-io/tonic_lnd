@@ -713,7 +713,7 @@ message Transaction {
 
     // Addresses that received funds for this transaction. Deprecated as it is
     // now incorporated in the output_details field.
-    repeated string dest_addresses = 8 [deprecated = true];
+    //repeated string dest_addresses = 8 [deprecated = true];
 
     // Outputs that received funds for this transaction
     repeated OutputDetail output_details = 11;
@@ -1159,7 +1159,7 @@ message SendCoinsRequest {
     // Deprecated, use sat_per_vbyte.
     // A manual fee rate set in sat/vbyte that should be used when crafting the
     // transaction.
-    int64 sat_per_byte = 5 [deprecated = true];
+    //int64 sat_per_byte = 5 [deprecated = true];
 
     /*
     If set, then the amount field will be ignored, and lnd will attempt to
@@ -1911,7 +1911,7 @@ message GetInfoResponse {
     Whether the current node is connected to testnet. This field is
     deprecated and the network field should be used instead
     **/
-    bool testnet = 10 [deprecated = true];
+    //bool testnet = 10 [deprecated = true];
 
     reserved 11;
 
@@ -1993,7 +1993,7 @@ message CloseChannelRequest {
     // Deprecated, use sat_per_vbyte.
     // A manual fee rate set in sat/vbyte that should be used when crafting the
     // closure transaction.
-    int64 sat_per_byte = 4 [deprecated = true];
+    //int64 sat_per_byte = 4 [deprecated = true];
 
     /*
     An optional address to send funds to in the case of a cooperative close.
@@ -2140,7 +2140,7 @@ message OpenChannelRequest {
     The hex encoded pubkey of the node to open a channel with. Deprecated now
     that the REST gateway supports base64 encoding of bytes fields.
     */
-    string node_pubkey_string = 3 [deprecated = true];
+    //string node_pubkey_string = 3 [deprecated = true];
 
     // The number of satoshis the wallet should commit to the channel
     int64 local_funding_amount = 4;
@@ -2156,7 +2156,7 @@ message OpenChannelRequest {
     // Deprecated, use sat_per_vbyte.
     // A manual fee rate set in sat/vbyte that should be used when crafting the
     // funding transaction.
-    int64 sat_per_byte = 7 [deprecated = true];
+    //int64 sat_per_byte = 7 [deprecated = true];
 
     // Whether this channel should be private, not announced to the greater
     // network.
@@ -3391,7 +3391,7 @@ message Invoice {
 
     The field is deprecated. Use the state field instead (compare to SETTLED).
     */
-    bool settled = 6 [deprecated = true];
+    //bool settled = 6 [deprecated = true];
 
     /*
     When this invoice was created.
@@ -3462,7 +3462,7 @@ message Invoice {
     uint64 settle_index = 17;
 
     // Deprecated, use amt_paid_sat or amt_paid_msat.
-    int64 amt_paid = 18 [deprecated = true];
+    //int64 amt_paid = 18 [deprecated = true];
 
     /*
     The amount that was accepted for this invoice, in satoshis. This will ONLY
@@ -3639,7 +3639,7 @@ message PaymentHash {
     Deprecated now that the REST gateway supports base64 encoding of bytes
     fields.
     */
-    string r_hash_str = 1 [deprecated = true];
+    //string r_hash_str = 1 [deprecated = true];
 
     /*
     The payment hash of the invoice to be looked up. When using REST, this field
