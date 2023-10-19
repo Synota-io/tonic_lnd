@@ -32,3 +32,4 @@ tonic-build = "0.5.2"
 
 [dev-dependencies]
 tokio = { version = "1.7.1", features = ["rt-multi-thread"] }
+sha2 = "0.10.6"
