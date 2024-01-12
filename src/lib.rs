@@ -84,6 +84,7 @@ pub type RouterClient = routerrpc::router_client::RouterClient<InterceptedServic
 pub type LoopClient = looprpc::swap_client_client::SwapClientClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type FaradayServerClient = frdrpc::faraday_server_client::FaradayServerClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type InvoicesClient = invoicesrpc::invoices_client::InvoicesClient<InterceptedService<Channel, MacaroonInterceptor>>;
+pub type WalletUnlockerClient = lnrpc::wallet_unlocker_client::WalletUnlockerClient<InterceptedService<Channel, MacaroonInterceptor>>;
 
 /// The client returned by `connect` function
 ///
@@ -95,6 +96,7 @@ pub struct Client {
     loopclient: LoopClient, 
     faraday: FaradayServerClient,
     invoices: InvoicesClient,
+    wallet_unlocker: WalletUnlockerClient,
 }
 
 impl Client {
@@ -122,6 +124,10 @@ impl Client {
 
     pub fn invoices(&mut self) -> &mut InvoicesClient {
         &mut self.invoices
+    }
+
+    pub fn wallet_unlocker(&mut self) -> &mut WalletUnlockerClient {
+        &mut self.wallet_unlocker
     }
 }
 
@@ -226,6 +232,7 @@ pub async fn connect<A, CP, MP>(address: A, cert_file: CP, macaroon_file: MP) ->
         loopclient: looprpc::swap_client_client::SwapClientClient::with_interceptor(conn.clone(), interceptor.clone()),
         faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
         invoices: invoicesrpc::invoices_client::InvoicesClient::with_interceptor(conn.clone(), interceptor.clone()),
+        wallet_unlocker: lnrpc::wallet_unlocker_client::WalletUnlockerClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
@@ -252,6 +259,7 @@ pub async fn in_mem_connect<A>(address: A, cert_file_as_hex: String, macaroon_as
         loopclient: looprpc::swap_client_client::SwapClientClient::with_interceptor(conn.clone(), interceptor.clone()),
         faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
         invoices: invoicesrpc::invoices_client::InvoicesClient::with_interceptor(conn.clone(), interceptor.clone()),
+        wallet_unlocker: lnrpc::wallet_unlocker_client::WalletUnlockerClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }

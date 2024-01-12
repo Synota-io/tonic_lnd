@@ -22,6 +22,7 @@ fn main() -> std::io::Result<()> {
         "faraday.proto",
         "looprpc/client.proto",
         "invoicesrpc/invoices.proto",
+        "walletunlocker.proto"
     ];
 
     let proto_paths: Vec<_> = protos
@@ -63,6 +64,16 @@ fn main() -> std::io::Result<()> {
         .type_attribute("WalletBalanceResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("AccountBalanceEntry", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("WalletAccountBalance", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //WalletUnlocker fields
+        .type_attribute("GenSeedResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("UnlockWalletRequest", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("UnlockWalletResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ChanBackupSnapshot", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("MultiChanBackup", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ChannelBackups", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ChannelBackup", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ChannelPoint", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("funding_txid", "#[derive(serde::Deserialize, serde::Serialize)]")
         .format(false)
         .compile(&proto_paths, &[dir])?;
     Ok(())
