@@ -24,12 +24,12 @@ async fn main() {
         .list_payments(tonic_lnd::lnrpc::ListPaymentsRequest {
             include_incomplete: false,
             index_offset: 1499002,
-            max_payments: 1,
+            max_payments: 100000,
             reversed: true,
             count_total_payments: false,
         })
         .await
-        .expect("failed to get wallet balance");
+        .expect("failed to list payments");
 
     // We only print it here, note that in real-life code you may want to call `.into_inner()` on
     // the response to get the message.
