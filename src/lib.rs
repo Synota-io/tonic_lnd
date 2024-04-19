@@ -85,6 +85,7 @@ pub type LoopClient = looprpc::swap_client_client::SwapClientClient<InterceptedS
 pub type FaradayServerClient = frdrpc::faraday_server_client::FaradayServerClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type InvoicesClient = invoicesrpc::invoices_client::InvoicesClient<InterceptedService<Channel, MacaroonInterceptor>>;
 pub type WalletUnlockerClient = lnrpc::wallet_unlocker_client::WalletUnlockerClient<InterceptedService<Channel, MacaroonInterceptor>>;
+pub type StateClient = lnrpc::state_client::StateClient<InterceptedService<Channel, MacaroonInterceptor>>;
 
 /// The client returned by `connect` function
 ///
@@ -97,6 +98,7 @@ pub struct Client {
     faraday: FaradayServerClient,
     invoices: InvoicesClient,
     wallet_unlocker: WalletUnlockerClient,
+    state: StateClient,
 }
 
 impl Client {
@@ -128,6 +130,10 @@ impl Client {
 
     pub fn wallet_unlocker(&mut self) -> &mut WalletUnlockerClient {
         &mut self.wallet_unlocker
+    }
+
+    pub fn state(&mut self) -> &mut StateClient {
+        &mut self.state
     }
 }
 
@@ -233,6 +239,7 @@ pub async fn connect<A, CP, MP>(address: A, cert_file: CP, macaroon_file: MP) ->
         faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
         invoices: invoicesrpc::invoices_client::InvoicesClient::with_interceptor(conn.clone(), interceptor.clone()),
         wallet_unlocker: lnrpc::wallet_unlocker_client::WalletUnlockerClient::with_interceptor(conn.clone(), interceptor.clone()),
+        state: lnrpc::state_client::StateClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
@@ -260,6 +267,7 @@ pub async fn in_mem_connect<A>(address: A, cert_file_as_hex: String, macaroon_as
         faraday: frdrpc::faraday_server_client::FaradayServerClient::with_interceptor(conn.clone(), interceptor.clone()),
         invoices: invoicesrpc::invoices_client::InvoicesClient::with_interceptor(conn.clone(), interceptor.clone()),
         wallet_unlocker: lnrpc::wallet_unlocker_client::WalletUnlockerClient::with_interceptor(conn.clone(), interceptor.clone()),
+        state: lnrpc::state_client::StateClient::with_interceptor(conn.clone(), interceptor.clone()),
     };
     Ok(client)
 }
