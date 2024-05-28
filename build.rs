@@ -22,7 +22,8 @@ fn main() -> std::io::Result<()> {
         "faraday.proto",
         "looprpc/client.proto",
         "invoicesrpc/invoices.proto",
-        "walletunlocker.proto"
+        "walletunlocker.proto",
+        "stateservice.proto",
     ];
 
     let proto_paths: Vec<_> = protos
@@ -74,6 +75,9 @@ fn main() -> std::io::Result<()> {
         .type_attribute("ChannelBackup", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("ChannelPoint", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("funding_txid", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //StateService fields
+        .type_attribute("GetState", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("SubscribeState", "#[derive(serde::Deserialize, serde::Serialize)]")
         .format(false)
         .compile(&proto_paths, &[dir])?;
     Ok(())
