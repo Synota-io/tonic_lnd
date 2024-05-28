@@ -78,6 +78,16 @@ fn main() -> std::io::Result<()> {
         //StateService fields
         .type_attribute("GetState", "#[derive(serde::Deserialize, serde::Serialize)]")
         .type_attribute("SubscribeState", "#[derive(serde::Deserialize, serde::Serialize)]")
+        //PendingChannels fields
+        .type_attribute("PendingChannelsResponse", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("Commitments", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("PendingOpenChannel", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("PendingChannel", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ClosedChannel", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("ForceClosedChannel", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("PendingHTLC", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("AnchorState", "#[derive(serde::Deserialize, serde::Serialize)]")
+        .type_attribute("WaitingCloseChannel", "#[derive(serde::Deserialize, serde::Serialize)]")
         .format(false)
         .compile(&proto_paths, &[dir])?;
     Ok(())
